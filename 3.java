@@ -2,7 +2,7 @@ import java.util.*;
 class book{
 String name,author;
 int price,num_pages;
- void book(){
+  book(){
 Scanner sc=new Scanner(System.in);
 System.out.println("Enter book name");
 name=sc.nextLine();
@@ -34,10 +34,7 @@ book b[]=new book[n];
 for(int i=0;i<n;i++){
 b[i]=new book();
 }
-for(int i=0;i<n;i++){
-b[i].book();
-// b[i].display();
-}
+
 for(int i=0;i<n;i++){
 
 b[i].display();
