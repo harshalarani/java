@@ -1,69 +1,64 @@
 import java.util.*;
 
-
-class fatherAgeException extends Exception
-{
-  public String toString(){
-      return("Father's age is less that 0");
-  }
-}
-
-class sonAgeException extends Exception{
-    int a;
-    sonAgeException(int age){
-        a=age;
-    }
-    public String toString(){
-        if(a<0)
-          return("Son's age is less than 0");
-        else
-          return("Son's age is more than father's age");
+class Invalidage extends Exception {
+    public String toString() {
+        String s = "Invalid age";
+        return s;
     }
 }
 
-
-class Father{
-    int age;
-    Scanner in=new Scanner(System.in);
-    Father(){
-        System.out.println("Enter the father's age: ");
-        age=in.nextInt();
+class Invalidboth extends Exception {
+    public String toString() {
+        String s = "Son's age cannot be greater than or equal to father's age";
+        return s;
     }
-    void ex1() throws fatherAgeException
-    {
-        if(age<0)
-         throw new fatherAgeException();
-    }
-
-
-}
-class Son extends Father{
-    int age;
-  Son(){
-    System.out.println("Enter the age of son: ");  
-    age=in.nextInt();
-  }
-  void ex2() throws sonAgeException{
-      if(age<0||age>super.age){
-         throw new sonAgeException(age);
-      }
-  }
 }
 
-public class except {
-    public static void main(String[] args){
-        Son s=new Son();
-        try{
-            s.ex1();
-        }
-        catch(fatherAgeException e){
-            System.out.println(e);
-        }
-        try{
-            s.ex2();
-        }
-        catch(sonAgeException e){
-            System.out.println(e);
+class father {
+    int f_age;
+    Scanner sc = new Scanner(System.in);
+
+    father() throws Invalidage {
+        System.out.println("Enter father's age");
+        f_age = sc.nextInt();
+        if (f_age <= 0)
+            throw new Invalidage();
+    }
+}
+
+class son extends father {
+    int s_age;
+    Scanner s = new Scanner(System.in);
+
+    son() throws Invalidage {
+        System.out.println("Enter son's age");
+        s_age = sc.nextInt();
+        if (s_age <= 0)
+            throw new Invalidage();
+    }
+
+    void check() throws Invalidboth {
+        if (s_age >= f_age)
+            throw new Invalidboth();
+        else {
+            System.out.println("fathers age is " + f_age);
+            System.out.println("son's age is " + s_age);
         }
     }
 }
+
+    public class programm6 {
+        public static void main(String args[]) {
+
+            try {
+                son ob = new son();
+                ob.check();
+            } catch (Invalidage e) {
+                System.out.println(e);
+            } catch (Invalidboth e1) {
+                System.out.println(e1);
+            }
+
+        }
+    }
+
